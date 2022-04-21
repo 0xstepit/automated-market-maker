@@ -13,8 +13,6 @@ ending_color_hsv = 270 / 360
 mpl.rcParams['axes.prop_cycle'] = cycler(
     color = ['#33FFA7', '#33FFDC', '#33EEFF', '#33C0FF', '#339EFF', '#335AFF', '#5933FF', '#8433FF', '#AF33FF', '#D433FF', '#FC33FF']
 )
-
-mpl.rcParams['font.sans-serif'] = ['FreeSans', ]
 mpl.rcParams["figure.figsize"] = [7.50, 4.50]
 
 
@@ -48,6 +46,10 @@ def make_plot (data: list, title: str, boundaries: int, legend: list, save_fig: 
     ax.title.set_color(gray)
     ax.tick_params(axis='x', colors=gray)
     ax.tick_params(axis='y', colors=gray)
+    plt.annotate(
+        r'@stepyt', xy=(0.5, 0.5), alpha=0.5,
+        ha='left', va='bottom', color=gray, size=11
+    )
     for curve in data:
         plt.plot(curve[0], curve[1], linewidth=3)
     plt.title(f'{title.upper()}', fontweight='bold', fontsize='16', pad=20)
@@ -55,7 +57,61 @@ def make_plot (data: list, title: str, boundaries: int, legend: list, save_fig: 
     plt.ylim([0, boundaries])
     plt.xlabel("Token A [amount]", fontweight='bold', fontsize='13')
     plt.ylabel("Token B [amount]", fontweight='bold', fontsize='13')
-    plt.legend(legend)
+    if legend:
+        plt.legend(legend)
+    plt.grid()
+    if save_fig:
+        plt.savefig(f'../assets/images/{fig_title}', format='png', dpi=600)
+
+
+def make_plot_price (
+    data: list,
+    points: list,
+    title: str, 
+    boundaries: int, 
+    legend: list,
+    save_fig: bool = False, 
+    fig_title: str = ''
+    ):
+
+    make_color_line(len(data))
+
+    plt.figure(figsize=(7,7), facecolor=black_deep)
+    ax = plt.axes()
+    ax.set_facecolor(black_light)
+    ax.spines['bottom'].set_color(gray)
+    ax.spines['left'].set_color(gray)
+    ax.spines['top'].set_color(gray)
+    ax.spines['right'].set_color(gray)
+    ax.xaxis.label.set_color(gray)
+    ax.yaxis.label.set_color(gray)
+    ax.title.set_color(gray)
+    ax.tick_params(axis='x', colors=gray)
+    ax.tick_params(axis='y', colors=gray)
+    plt.annotate(
+        r'@stepyt', xy=(0.5, 0.5), alpha=0.5,
+        ha='left', va='bottom', color=gray, size=11
+        )
+    for curve in data:
+        plt.plot(curve[0], curve[1], linewidth=3)
+    plt.scatter(points[0], points[1], color='r', linewidth=5, zorder=10)
+    plt.plot(points[0], [points[1][0], points[1][0]], '--r')
+    plt.plot([points[0][1], points[0][1]], points[1], '--r')
+    plt.annotate(
+        r'$\Delta A$', xy=((points[0][0] + points[0][1]) / 2, points[1][0]),
+        ha='center', va='bottom', color=gray, size=15
+        )
+    plt.annotate(
+        r'$\Delta B$', xy=(points[0][1], (points[1][0] + points[1][1]) / 2),
+        ha='left', va='center', color=gray, size=15
+        )
+    plt.title(f'{title.upper()}', fontweight='bold', fontsize='16', pad=20)
+    plt.xlim([0, boundaries])
+    plt.ylim([0, boundaries])
+    plt.xlabel("Token A [amount]", fontweight='bold', fontsize='13')
+    plt.ylabel("Token B [amount]", fontweight='bold', fontsize='13')
+    if legend:
+        plt.legend(legend)
     plt.grid()
     if save_fig:
         plt.savefig(f'../assets/images/{fig_title}', format='png', dpi=600)
