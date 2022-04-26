@@ -4,13 +4,21 @@ This repo contains the implementation of different models of bonding curve under
 
 ## Results
 
-![Constant Product Invariant](/assets/images/xyk.png)
+<p align="center">
+<img src="/assets/images/xyk.png" width="650" />
+</p>
 
-![AMM comparison](/assets/images/amm.png)
+<p align="center">
+<img src="/assets/images/amm.png" width="650" />
+</p>
 
-![Static Stableswap Model](/assets/images/stableswap-static.png)
+<p align="center">
+<img src="/assets/images/stableswap-static.png" width="650" />
+</p>
 
-![Dynamic Stableswap Model](/assets/images/stableswap-dynamic.png)
+<p align="center">
+<img src="/assets/images/stableswap-dynamic.png" width="650" />
+</p>
 
 ## Content
 
