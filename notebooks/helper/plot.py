@@ -63,7 +63,21 @@ def make_plot (data: list, title: str, boundaries: int, legend: list, save_fig: 
     if save_fig:
         plt.savefig(f'../assets/images/{fig_title}', format='png', dpi=600)
 
+def make_plot_just_line (data: list, title: str, boundaries: int, legend: list, save_fig: bool = False, fig_title: str = ''):
 
+    make_color_line(len(data))
+
+    plt.figure(figsize=(7,7))
+    ax = plt.axes()
+    ax.axis('off')
+    for curve in data:
+        plt.plot(curve[0], curve[1], linewidth=3)
+    plt.xlim([0, boundaries])
+    plt.ylim([0, boundaries])
+    ax.patch.set_alpha(0.)
+    if save_fig:
+        plt.savefig(f'../assets/images/{fig_title}', transparent=True, format='png', dpi=600)
+        
 def make_plot_price (
     data: list,
     points: list,
